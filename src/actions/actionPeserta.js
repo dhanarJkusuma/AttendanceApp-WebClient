@@ -31,10 +31,11 @@ export const DO_PREPARE_FORM = 'DO_PREPARE_FORM';
 export const DONE_PREPARE_FORM = 'DONE_PREPARE_FORM';
 export const FAILURE_PREPARE_FORM = 'FAILURE_PREPARE_FORM';
 
-var config = {
-    headers: { 'Authorization': localStorage.getItem('absen-token') },
-};
-
+export function getConfig(){
+    return {
+        headers: { 'Authorization': localStorage.getItem('absen-token') },
+    };
+}
 
 export function processRequest(){
     return {
@@ -172,7 +173,7 @@ export function failureGetForm(err){
 export function getKloter(){
     return dispatch => {
         dispatch(processGetForm());
-        axios.get(API_GET_KLOTER, config)
+        axios.get(API_GET_KLOTER, getConfig())
             .then(function(res){
                 var data = {
                     kloter: res.data.data
@@ -186,7 +187,7 @@ export function getKloter(){
 export function getData(){
     return dispatch => {
         dispatch(processRequest());
-        axios.get(API_GET_PESERTA, config)
+        axios.get(API_GET_PESERTA, getConfig())
             .then(function(res){
                 dispatch(doneRequest(res.data.data));
             })
@@ -197,7 +198,7 @@ export function getData(){
 export function insertData(peserta){
     return dispatch => {
         dispatch(processPost());
-        axios.post(API_GET_PESERTA, peserta, config)
+        axios.post(API_GET_PESERTA, peserta, getConfig())
             .then(function(res){
                 dispatch(donePost(res.data.data));
                 dispatch(getData());
@@ -209,7 +210,7 @@ export function insertData(peserta){
 export function updateData(id, peserta){
     return dispatch => {
         dispatch(processUpdate());
-        axios.post(API_UPDATE_PESERTA + id, peserta, config)
+        axios.post(API_UPDATE_PESERTA + id, peserta, getConfig())
             .then(function(res){
                 dispatch(doneUpdate(res.data.message));
                 setTimeout(function(){
@@ -223,7 +224,7 @@ export function updateData(id, peserta){
 export function deleteData(id){
     return dispatch => {
         dispatch(processDelete());
-        axios.post(API_DELETE_PESERTA + id, {}, config)
+        axios.post(API_DELETE_PESERTA + id, {}, getConfig())
             .then(function(res){
                 console.log(res);
                 dispatch(doneDelete(res.data.message));

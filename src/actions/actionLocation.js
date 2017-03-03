@@ -22,10 +22,11 @@ export const DONE_DELETE_LOCATION = 'DONE_DELETE_LOCATION';
 export const FAILURE_DELETE_LOCATION = 'FAILURE_DELETE_LOCATION';
 export const FINISH_DELETE_LOCATION = 'FINISH_DELETE_LOCATION';
 
-var config = {
-    headers: { 'Authorization': localStorage.getItem('absen-token') },
-};
-
+export function getConfig(){
+    return {
+        headers: { 'Authorization': localStorage.getItem('absen-token') },
+    };
+}
 
 export function processRequest(){
     return {
@@ -138,7 +139,7 @@ export function finsihDelete(){
 export function getData(){
     return dispatch => {
         dispatch(processRequest());
-        axios.get(API_GET_LOCATION, config)
+        axios.get(API_GET_LOCATION, getConfig())
             .then(function(res){
                 dispatch(doneRequest(res.data.data));
             })
@@ -149,7 +150,7 @@ export function getData(){
 export function insertData(location){
     return dispatch => {
         dispatch(processPost());
-        axios.post(API_GET_LOCATION, {name: location}, config)
+        axios.post(API_GET_LOCATION, {name: location}, getConfig())
             .then(function(res){
                 dispatch(donePost(res.data.data));
                 dispatch(getData());
@@ -161,7 +162,7 @@ export function insertData(location){
 export function updateData(id, location){
     return dispatch => {
         dispatch(processUpdate());
-        axios.post(API_UPDATE_LOCATION + id, {name:location}, config)
+        axios.post(API_UPDATE_LOCATION + id, {name:location}, getConfig())
             .then(function(res){
                 dispatch(doneUpdate(res.data.message));
                 setTimeout(function(){
@@ -175,7 +176,7 @@ export function updateData(id, location){
 export function deleteData(id){
     return dispatch => {
         dispatch(processDelete());
-        axios.post(API_DELETE_LOCATION + id, {}, config)
+        axios.post(API_DELETE_LOCATION + id, {}, getConfig())
             .then(function(res){
                 console.log(res);
                 dispatch(doneDelete(res.data.message));

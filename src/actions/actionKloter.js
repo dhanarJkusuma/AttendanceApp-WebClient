@@ -22,10 +22,13 @@ export const DONE_DELETE_KLOTER = 'DONE_DELETE_KLOTER';
 export const FAILURE_DELETE_KLOTER = 'FAILURE_DELETE_KLOTER';
 export const FINISH_DELETE_KLOTER = 'FINISH_DELETE_KLOTER';
 
-var config = {
-    headers: { 'Authorization': localStorage.getItem('absen-token') },
-};
 
+
+export function getConfig(){
+    return {
+        headers: { 'Authorization': localStorage.getItem('absen-token') },
+    };
+}
 
 export function processRequest(){
     return {
@@ -136,10 +139,10 @@ export function finsihDelete(){
 }
 
 export function getData(){
-    console.log(config);
+
     return dispatch => {
         dispatch(processRequest());
-        axios.get(API_GET_KLOTER, config)
+        axios.get(API_GET_KLOTER, getConfig())
             .then(function(res){
                 dispatch(doneRequest(res.data.data));
             })
@@ -150,7 +153,7 @@ export function getData(){
 export function insertData(kloter){
     return dispatch => {
         dispatch(processPost());
-        axios.post(API_GET_KLOTER, {name: kloter}, config)
+        axios.post(API_GET_KLOTER, {name: kloter}, getConfig())
             .then(function(res){
                 dispatch(donePost(res.data.data));
                 dispatch(getData());
@@ -162,7 +165,7 @@ export function insertData(kloter){
 export function updateData(id, kloter){
     return dispatch => {
         dispatch(processUpdate());
-        axios.post(API_UPDATE_KLOTER + id, {name:kloter}, config)
+        axios.post(API_UPDATE_KLOTER + id, {name:kloter}, getConfig())
             .then(function(res){
                 dispatch(doneUpdate(res.data.message));
                 setTimeout(function() {
@@ -176,7 +179,7 @@ export function updateData(id, kloter){
 export function deleteData(id){
     return dispatch => {
         dispatch(processDelete());
-        axios.post(API_DELETE_KLOTER + id, {}, config)
+        axios.post(API_DELETE_KLOTER + id, {}, getConfig())
             .then(function(res){
                 console.log(res);
                 dispatch(doneDelete(res.data.message));
