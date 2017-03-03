@@ -1,0 +1,43 @@
+.form-login{
+    margin-top:90px;
+    padding: 60px;
+
+}
+
+.form-login .input-group-addon{
+    border: 1px solid #c9302c;
+    background-color: #c9302c;
+    color: #ffffff;
+}
+
+.form-login .form-control{
+    border: 1px solid #D32F2F;
+}
+
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 90px;
+    height: 90px;
+    margin-left:auto;
+    margin-right:auto;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+.loading{
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
