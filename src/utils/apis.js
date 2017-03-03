@@ -1,7 +1,7 @@
 /**
  * Created by Dhanar J Kusuma on 27/02/2017.
  */
-export const BASE_URL = '//188.166.235.46:3000/';
+export const BASE_URL = 'http://188.166.235.46:3000/';
 export const API_LOGIN = BASE_URL + 'user/login';
 export const API_VERIFIED = BASE_URL + 'verified';
 
