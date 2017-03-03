@@ -136,6 +136,7 @@ export function finsihDelete(){
 }
 
 export function getData(){
+    console.log(config);
     return dispatch => {
         dispatch(processRequest());
         axios.get(API_GET_KLOTER, config)
