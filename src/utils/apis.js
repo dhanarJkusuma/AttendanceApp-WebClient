@@ -17,3 +17,7 @@ export const API_DELETE_LOCATION = BASE_URL + 'location/delete/';
 export const API_GET_PESERTA = BASE_URL + 'peserta';
 export const API_UPDATE_PESERTA = BASE_URL + 'peserta/update/';
 export const API_DELETE_PESERTA = BASE_URL + 'peserta/delete/';
+
+export const API_GET_USER = BASE_URL + 'muser';
+export const API_UPDATE_USER = BASE_URL + 'muser/update/';
+export const API_DELETE_USER = BASE_URL + 'muser/delete/'

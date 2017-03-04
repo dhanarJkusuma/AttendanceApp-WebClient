@@ -1,69 +1,53 @@
 /**
- * Created by Dhanar J Kusuma on 01/03/2017.
+ * Created by Dhanar J Kusuma on 28/02/2017.
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateData, finishUpdate } from '../../actions/actionPeserta';
 import Loader from '../Loader';
 
-import Message from '../Message';
-class UpdateFormPeserta extends React.Component{
+class FormPeserta extends React.Component{
 
     constructor(props){
         super(props);
-
         this.state = {
-            name : this.props.peserta.nama,
-            alamat : this.props.peserta.alamat,
-            kloter : this.props.peserta._kloter,
-        }
+            'name' : '',
+            'alamat' : '',
+            'kloter' : ''
+        };
     }
 
-    handleCloseForm(){
-        this.props.onClose();
+    componentDidMount(){
+        this.props.onPrepareData();
     }
 
-    handleCloseMessage(){
-        this.props.finishUpdate();
-    }
-
-    handleSubmit(e){
-        e.preventDefault();
-        this.props.updateData(this.props.peserta._id, this.state);
-    }
 
     onTextChange(e){
         this.setState({ [e.target.name] : e.target.value });
     }
 
+    onHandleButtonSubmit(e){
+        e.preventDefault();
+        this.props.onFormSubmit(this.state);
+    }
 
     render(){
         if(this.props.data.preparing){
             return (
                 <Loader/>
             )
-        }else {
-            if(!this.props.data.preparing && this.props.data.prepared) {
-                return (
+        }else{
+            if(!this.props.data.preparing && this.props.data.prepared){
+                return(
                     <div className="col-md-12">
-                        {(this.props.rpeserta.updated) ? <Message message={this.props.rpeserta.message}
-                                                                  onClose={this.handleCloseMessage.bind(this)}/> : ""}
-                        <div className="form-group">
-                            <button onClick={this.handleCloseForm.bind(this)} className="btn btn-primary"><span
-                                className="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Kembali
-                            </button>
-                        </div>
-                        <form onSubmit={this.handleSubmit.bind(this)}>
+                        <form className="form-horizontal" onSubmit={this.onHandleButtonSubmit.bind(this)}>
                             <div className="form-group">
-                                <label>Nama : </label>
+                                <label htmlFor="name"> Nama Peserta :</label>
                                 <input
                                     type="text"
                                     name="name"
-                                    placeholder="Nama Peserta"
                                     className="form-control"
+                                    placeholder="Nama Peserta"
                                     onChange={this.onTextChange.bind(this)}
-                                    value={this.state.name}
-                                />
+                                    value={this.state.kloter_name}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="alamat"> Alamat :</label>
@@ -74,7 +58,7 @@ class UpdateFormPeserta extends React.Component{
                                     onChange={ this.onTextChange.bind(this) }
                                     value={ this.state.alamat }
                                 >
-                        </textarea>
+                                </textarea>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="kloter"> Kloter :</label>
@@ -86,7 +70,7 @@ class UpdateFormPeserta extends React.Component{
                                 >
                                     <option value=""> -- Pilih Kloter --</option>
                                     {
-                                        this.props.data.idata.kloter.map(function (kloter, i) {
+                                        this.props.data.idata.kloter.map(function(kloter, i){
                                             return (
                                                 <option value={ kloter._id } key={ i }>{ kloter.name }</option>
                                             )
@@ -94,28 +78,27 @@ class UpdateFormPeserta extends React.Component{
                                     }
                                 </select>
                             </div>
-                            <button
-                                type="submit"
-                                className="btn btn-warning"
-                                disabled={ this.props.rpeserta.updating }>
-                                Save
-                            </button>
+                            <div className="form-group">
+                                <button
+                                    type="submit"
+                                    disabled={this.props.peserta.posting}
+                                    className="btn btn-primary"
+                                >
+                                    { (this.props.peserta.posting) ? "Posting..." : "Tambah"  }
+                                </button>
+                            </div>
                         </form>
                     </div>
                 );
-            }else{
+            }
+            else{
                 return (
-                    <Loader />
+                    <Loader/>
                 )
             }
+
         }
     }
 }
 
-function mapStateToProps(state){
-    return {
-        rpeserta : state.peserta
-    }
-}
-
-export default connect(mapStateToProps, {updateData, finishUpdate})(UpdateFormPeserta);
+export default FormPeserta;
