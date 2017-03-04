@@ -4,14 +4,15 @@
 import React from 'react';
 import Loader from '../Loader';
 
-class FormPeserta extends React.Component{
+class FormUser extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            'name' : '',
-            'alamat' : '',
-            'kloter' : ''
+            'username' : '',
+            'password' : '',
+            'level' : '',
+            'location' : ''
         };
     }
 
@@ -40,39 +41,54 @@ class FormPeserta extends React.Component{
                     <div className="col-md-12">
                         <form className="form-horizontal" onSubmit={this.onHandleButtonSubmit.bind(this)}>
                             <div className="form-group">
-                                <label htmlFor="name"> Nama Peserta :</label>
+                                <label htmlFor="name"> Username :</label>
                                 <input
                                     type="text"
-                                    name="name"
+                                    name="username"
                                     className="form-control"
-                                    placeholder="Nama Peserta"
+                                    placeholder="Username"
                                     onChange={this.onTextChange.bind(this)}
-                                    value={this.state.kloter_name}/>
+                                    value={this.state.username}/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="alamat"> Alamat :</label>
-                                <textarea
-                                    name="alamat"
-                                    placeholder="Alamat"
+                                <label htmlFor="password"> Password :</label>
+                                <input
+                                    type="password"
+                                    name="password"
                                     className="form-control"
+                                    placeholder="Password"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.alamat }
-                                >
-                                </textarea>
+                                    value={ this.state.password }
+                                    />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="kloter"> Kloter :</label>
+                                <label htmlFor="level"> Level :</label>
                                 <select
-                                    name="kloter"
+                                    name="level"
                                     className="form-control"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.kloter }
+                                    value={ this.state.level }
                                 >
-                                    <option value=""> -- Pilih Kloter --</option>
+                                    <option value=""> -- Pilih Level --</option>
+                                    <option value="sh"> SH </option>
+                                    <option value="reps"> REPS </option>
+
+
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location"> Location :</label>
+                                <select
+                                    name="location"
+                                    className="form-control"
+                                    onChange={ this.onTextChange.bind(this) }
+                                    value={ this.state.location }
+                                >
+                                    <option value=""> -- Pilih Location --</option>
                                     {
-                                        this.props.data.idata.kloter.map(function(kloter, i){
+                                        this.props.data.idata.location.map(function(location, i){
                                             return (
-                                                <option value={ kloter._id } key={ i }>{ kloter.name }</option>
+                                                <option value={ location._id } key={ i }>{ location.name }</option>
                                             )
                                         }, this)
                                     }
@@ -81,10 +97,10 @@ class FormPeserta extends React.Component{
                             <div className="form-group">
                                 <button
                                     type="submit"
-                                    disabled={this.props.peserta.posting}
+                                    disabled={ this.props.muser.posting }
                                     className="btn btn-primary"
                                 >
-                                    { (this.props.peserta.posting) ? "Posting..." : "Tambah"  }
+                                    { (this.props.muser.posting) ? "Posting..." : "Tambah"  }
                                 </button>
                             </div>
                         </form>
@@ -101,4 +117,4 @@ class FormPeserta extends React.Component{
     }
 }
 
-export default FormPeserta;
+export default FormUser;

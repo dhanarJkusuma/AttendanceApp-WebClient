@@ -7,12 +7,12 @@ import 'sweetalert/dist/sweetalert.css';
 import { connect } from 'react-redux';
 
 import Loader from '../Loader';
-import ItemPeserta from './ItemPeserta';
-import FormPeserta from './FormPeserta';
-import UpdateFormPeserta from './UpdateFormPeserta';
+import ItemUser from './ItemUser';
+import FormUser from './FormUser';
+import UpdateFormUser from './UpdateFormUser';
 
-import { insertData, deleteData, getKloter } from '../../actions/actionPeserta';
-class TablePeserta extends React.Component{
+import { insertData, deleteData, getLocation } from '../../actions/actionUser';
+class TableUser extends React.Component{
 
     constructor(props){
         super(props);
@@ -30,7 +30,7 @@ class TablePeserta extends React.Component{
     }
 
     onHandleForm(){
-        this.props.getKloter();
+        this.props.getLocation();
     }
 
     onHandleDelete(data){
@@ -57,23 +57,23 @@ class TablePeserta extends React.Component{
 
 
     render(){
-        const { requesting } = this.props.peserta;
+        const { requesting } = this.props.muser;
         if(requesting){
             return (<Loader />)
         }else{
             if(requesting===false){
-                const data = this.props.peserta.response;
+                const data = this.props.muser.response;
                 if(this.state.showUpdate){
                     return (
-                        <UpdateFormPeserta data={ this.props.rPeserta } peserta={this.state.tmpUpdate} onClose={this.closeUpdateDialog.bind(this)} />
+                        <UpdateFormUser data={ this.props.rmUser } muser={this.state.tmpUpdate} onClose={this.closeUpdateDialog.bind(this)} />
                     )
                 }
                 else{
                     return (
                         <div className="container">
-                            <FormPeserta
-                                data={ this.props.rPeserta }
-                                peserta={this.props.peserta}
+                            <FormUser
+                                data={ this.props.rmUser }
+                                muser={this.props.muser}
                                 onPrepareData={ this.onHandleForm.bind(this) }
                                 onFormSubmit={ this.onHandleSubmit.bind(this) }
                             />
@@ -83,17 +83,17 @@ class TablePeserta extends React.Component{
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
+                                        <th>Username</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {
-                                        data.map(function(peserta, i){
-                                            return <ItemPeserta
-                                                peserta={peserta}
+                                        data.map(function(user, i){
+                                            return <ItemUser
+                                                muser={user}
                                                 index={i+1}
-                                                key={peserta._id}
+                                                key={user._id}
                                                 onDeleteClick={this.showConfirmation.bind(this)}
                                                 onUpdateClick={this.showUpdateDialog.bind(this)}
                                             />
@@ -128,19 +128,20 @@ class TablePeserta extends React.Component{
         }
     }
 }
-TablePeserta.propType = {
+TableUser.propType = {
     insertData: React.PropTypes.func.isRequired,
-    getKloter : React.PropTypes.func.isRequired,
-    rPeserta : React.PropTypes.object.isRequired
+    getLocation : React.PropTypes.func.isRequired,
+    deleteData : React.PropTypes.func.isRequired,
+    rmUser : React.PropTypes.object.isRequired
 };
 
 
 function mapStateToProps(state){
     return {
-        rPeserta : state.peserta
+        rmUser : state.muser
     }
 }
 
 
 
-export default connect(mapStateToProps, { insertData, deleteData, getKloter })(TablePeserta);
+export default connect(mapStateToProps, { insertData, deleteData, getLocation })(TableUser);

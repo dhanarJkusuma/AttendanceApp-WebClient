@@ -3,21 +3,21 @@
  */
 import React from 'react';
 
-class ItemPeserta extends React.Component{
+class ItemUser extends React.Component{
 
     handleDelete(){
-        this.props.onDeleteClick(this.props.peserta);
+        this.props.onDeleteClick(this.props.user);
     }
 
     handleUpdate(){
-        this.props.onUpdateClick(this.props.peserta);
+        this.props.onUpdateClick(this.props.user);
     }
 
     render(){
         return (
             <tr>
                 <td>{ this.props.index }</td>
-                <td>{ this.props.peserta.nama }</td>
+                <td>{ this.props.user.username }</td>
                 <td>
                     <div className="btn-group" role="group" aria-label="...">
                         <button type="button" className="btn btn-warning" onClick={this.handleUpdate.bind(this)}>
@@ -33,4 +33,4 @@ class ItemPeserta extends React.Component{
     }
 }
 
-export default ItemPeserta;
+export default ItemUser;

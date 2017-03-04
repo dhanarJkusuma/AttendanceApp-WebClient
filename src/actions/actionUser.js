@@ -1,35 +1,35 @@
 /**
- * Created by Dhanar J Kusuma on 02/03/2017.
+ * Created by Dhanar J Kusuma on 04/03/2017.
  */
 import {
-    API_GET_PESERTA,
-    API_UPDATE_PESERTA,
-    API_DELETE_PESERTA,
-    API_GET_KLOTER
+    API_GET_USER,
+    API_UPDATE_USER,
+    API_DELETE_USER,
+    API_GET_LOCATION
 } from '../utils/apis';
 import axios from 'axios';
 
-export const DO_REQUEST_PESERTA = 'DO_REQUEST_PESERTA';
-export const DONE_REQUEST_PESERTA = 'DONE_REQUEST_PESERTA';
-export const FAILURE_REQUEST_PESERTA = 'FAILURE_REQUEST_PESERTA';
+export const DO_REQUEST_MUSER = 'DO_REQUEST_MUSER';
+export const DONE_REQUEST_MUSER = 'DONE_REQUEST_MUSER';
+export const FAILURE_REQUEST_MUSER = 'FAILURE_REQUEST_MUSER';
 
-export const DO_POST_PESERTA = 'DO_POST_PESERTA';
-export const DONE_POST_PESERTA = 'DONE_POST_PESERTA';
-export const FAILURE_POST_PESERTA = 'FAILURE_POST_PESERTA';
+export const DO_POST_MUSER = 'DO_POST_MUSER';
+export const DONE_POST_MUSER = 'DONE_POST_MUSER';
+export const FAILURE_POST_MUSER = 'FAILURE_POST_MUSER';
 
-export const DO_UPDATE_PESERTA = 'DO_UPDATE_PESERTA';
-export const DONE_UPDATE_PESERTA = 'DONE_UPDATE_PESERTA';
-export const FAILURE_UPDATE_PESERTA = 'FAILURE_UPDATE_PESERTA';
-export const FINISH_UPDATE_PESERTA = 'FINISH_UPDATE_PESERTA';
+export const DO_UPDATE_MUSER = 'DO_UPDATE_MUSER';
+export const DONE_UPDATE_MUSER = 'DONE_UPDATE_MUSER';
+export const FAILURE_UPDATE_MUSER = 'FAILURE_UPDATE_MUSER';
+export const FINISH_UPDATE_MUSER = 'FINISH_UPDATE_MUSER';
 
-export const DO_DELETE_PESERTA = 'DO_DELETE_PESERTA';
-export const DONE_DELETE_PESERTA = 'DONE_DELETE_PESERTA';
-export const FAILURE_DELETE_PESERTA = 'FAILURE_DELETE_PESERTA';
-export const FINISH_DELETE_PESERTA = 'FINISH_DELETE_PESERTA';
+export const DO_DELETE_MUSER = 'DO_DELETE_MUSER';
+export const DONE_DELETE_MUSER = 'DONE_DELETE_MUSER';
+export const FAILURE_DELETE_MUSER = 'FAILURE_DELETE_MUSER';
+export const FINISH_DELETE_MUSER = 'FINISH_DELETE_MUSER';
 
-export const DO_PREPARE_FORM_PESERTA = 'DO_PREPARE_FORM_PESERTA';
-export const DONE_PREPARE_FORM_PESERTA = 'DONE_PREPARE_FORM_PESERTA';
-export const FAILURE_PREPARE_FORM_PESERTA = 'FAILURE_PREPARE_FORM_PESERTA';
+export const DO_PREPARE_FORM_USER = 'DO_PREPARE_FORM_USER';
+export const DONE_PREPARE_FORM_USER = 'DONE_PREPARE_FORM_USER';
+export const FAILURE_PREPARE_FORM_USER = 'FAILURE_PREPARE_FORM_USER';
 
 export function getConfig(){
     return {
@@ -39,13 +39,13 @@ export function getConfig(){
 
 export function processRequest(){
     return {
-        type : DO_REQUEST_PESERTA
+        type : DO_REQUEST_MUSER
     }
 }
 
 export function doneRequest(data){
     return {
-        type : DONE_REQUEST_PESERTA,
+        type : DONE_REQUEST_MUSER,
         payload : {
             data
         }
@@ -54,7 +54,7 @@ export function doneRequest(data){
 
 export function failureRequest(err){
     return {
-        type : FAILURE_REQUEST_PESERTA,
+        type : FAILURE_REQUEST_MUSER,
         payload : {
             error : err
         }
@@ -64,13 +64,13 @@ export function failureRequest(err){
 
 export function processPost(){
     return {
-        type : DO_POST_PESERTA
+        type : DO_POST_MUSER
     }
 }
 
 export function donePost(data){
     return {
-        type : DONE_POST_PESERTA,
+        type : DONE_POST_MUSER,
         payload : {
             data : data
         }
@@ -79,7 +79,7 @@ export function donePost(data){
 
 export function failurePost(err){
     return {
-        type : FAILURE_POST_PESERTA,
+        type : FAILURE_POST_MUSER,
         payload : {
             error : err
         }
@@ -89,13 +89,13 @@ export function failurePost(err){
 
 export function processUpdate(){
     return {
-        type : DO_UPDATE_PESERTA
+        type : DO_UPDATE_MUSER
     }
 }
 
 export function doneUpdate(message){
     return {
-        type : DONE_UPDATE_PESERTA,
+        type : DONE_UPDATE_MUSER,
         payload : {
             message : message
         }
@@ -104,7 +104,7 @@ export function doneUpdate(message){
 
 export function failureUpdate(err){
     return {
-        type : FAILURE_UPDATE_PESERTA,
+        type : FAILURE_UPDATE_MUSER,
         payload : {
             err
         }
@@ -113,20 +113,20 @@ export function failureUpdate(err){
 
 export function finishUpdate() {
     return {
-        type : FINISH_UPDATE_PESERTA
+        type : FINISH_UPDATE_MUSER
     }
 }
 
 
 export function processDelete(){
     return {
-        type : DO_DELETE_PESERTA
+        type : DO_DELETE_MUSER
     }
 }
 
 export function doneDelete(message){
     return {
-        type : DONE_DELETE_PESERTA,
+        type : DONE_DELETE_MUSER,
         payload : {
             message
         }
@@ -135,26 +135,26 @@ export function doneDelete(message){
 
 export function failureDelete(err){
     return {
-        type : FAILURE_DELETE_PESERTA
+        type : FAILURE_DELETE_MUSER
     }
 }
 
 export function finsihDelete(){
     return {
-        type : FINISH_DELETE_PESERTA
+        type : FINISH_DELETE_MUSER
     }
 }
 
 
 export function processGetForm(){
     return {
-        type : DO_PREPARE_FORM_PESERTA
+        type : DO_PREPARE_FORM_USER
     }
 }
 
 export function doneGetForm(data){
     return {
-        type : DONE_PREPARE_FORM_PESERTA,
+        type : DONE_PREPARE_FORM_USER,
         payload : {
             data
         }
@@ -163,20 +163,20 @@ export function doneGetForm(data){
 
 export function failureGetForm(err){
     return {
-        type : FAILURE_PREPARE_FORM_PESERTA,
+        type : FAILURE_PREPARE_FORM_USER,
         payload : {
             err
         }
     }
 }
 
-export function getKloter(){
+export function getLocation(){
     return dispatch => {
         dispatch(processGetForm());
-        axios.get(API_GET_KLOTER, getConfig())
+        axios.get(API_GET_LOCATION, getConfig())
             .then(function(res){
                 var data = {
-                    kloter: res.data.data
+                    location: res.data.data
                 };
                 dispatch(doneGetForm(data));
             })
@@ -187,7 +187,7 @@ export function getKloter(){
 export function getData(){
     return dispatch => {
         dispatch(processRequest());
-        axios.get(API_GET_PESERTA, getConfig())
+        axios.get(API_GET_USER, getConfig())
             .then(function(res){
                 dispatch(doneRequest(res.data.data));
             })
@@ -198,7 +198,7 @@ export function getData(){
 export function insertData(peserta){
     return dispatch => {
         dispatch(processPost());
-        axios.post(API_GET_PESERTA, peserta, getConfig())
+        axios.post(API_GET_USER, peserta, getConfig())
             .then(function(res){
                 dispatch(donePost(res.data.data));
                 dispatch(getData());
@@ -210,7 +210,7 @@ export function insertData(peserta){
 export function updateData(id, peserta){
     return dispatch => {
         dispatch(processUpdate());
-        axios.post(API_UPDATE_PESERTA + id, peserta, getConfig())
+        axios.post(API_UPDATE_USER + id, peserta, getConfig())
             .then(function(res){
                 dispatch(doneUpdate(res.data.message));
                 setTimeout(function(){
@@ -224,7 +224,7 @@ export function updateData(id, peserta){
 export function deleteData(id){
     return dispatch => {
         dispatch(processDelete());
-        axios.post(API_DELETE_PESERTA + id, {}, getConfig())
+        axios.post(API_DELETE_USER + id, {}, getConfig())
             .then(function(res){
                 console.log(res);
                 dispatch(doneDelete(res.data.message));

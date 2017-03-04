@@ -13,9 +13,9 @@ class UpdateFormPeserta extends React.Component{
         super(props);
 
         this.state = {
-            name : this.props.peserta.nama,
-            alamat : this.props.peserta.alamat,
-            kloter : this.props.peserta._kloter,
+            username : this.props.peserta.username,
+            level : this.props.peserta.level,
+            location : this.props.peserta._location,
         }
     }
 
@@ -29,7 +29,7 @@ class UpdateFormPeserta extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        this.props.updateData(this.props.peserta._id, this.state);
+        this.props.updateData(this.props.muser._id, this.state);
     }
 
     onTextChange(e){
@@ -46,7 +46,7 @@ class UpdateFormPeserta extends React.Component{
             if(!this.props.data.preparing && this.props.data.prepared) {
                 return (
                     <div className="col-md-12">
-                        {(this.props.rpeserta.updated) ? <Message message={this.props.rpeserta.message}
+                        {(this.props.rmuser.updated) ? <Message message={this.props.rmuser.message}
                                                                   onClose={this.handleCloseMessage.bind(this)}/> : ""}
                         <div className="form-group">
                             <button onClick={this.handleCloseForm.bind(this)} className="btn btn-primary"><span
@@ -55,49 +55,45 @@ class UpdateFormPeserta extends React.Component{
                         </div>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <div className="form-group">
-                                <label>Nama : </label>
+                                <label>Username : </label>
                                 <input
                                     type="text"
-                                    name="name"
-                                    placeholder="Nama Peserta"
+                                    name="username"
+                                    placeholder="Username"
                                     className="form-control"
                                     onChange={this.onTextChange.bind(this)}
-                                    value={this.state.name}
+                                    value={this.state.username}
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="alamat"> Alamat :</label>
-                                <textarea
-                                    name="alamat"
-                                    placeholder="Alamat"
+                                <label htmlFor="alamat"> Level :</label>
+                                <select
+                                    name="level"
                                     className="form-control"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.alamat }
+                                    value={ this.state.level }
                                 >
-                        </textarea>
+                                    <option value=""> -- Pilih Level --</option>
+                                    <option value="sh"> SH </option>
+                                    <option value="reps"> REPS </option>
+                                </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="kloter"> Kloter :</label>
+                                <label htmlFor="location"> Location :</label>
                                 <select
-                                    name="kloter"
+                                    name="location"
                                     className="form-control"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.kloter }
+                                    value={ this.state.location }
                                 >
-                                    <option value=""> -- Pilih Kloter --</option>
-                                    {
-                                        this.props.data.idata.kloter.map(function (kloter, i) {
-                                            return (
-                                                <option value={ kloter._id } key={ i }>{ kloter.name }</option>
-                                            )
-                                        }, this)
-                                    }
+                                    <option value=""> -- Pilih Location --</option>
+
                                 </select>
                             </div>
                             <button
                                 type="submit"
                                 className="btn btn-warning"
-                                disabled={ this.props.rpeserta.updating }>
+                                disabled={ this.props.rmuser.updating }>
                                 Save
                             </button>
                         </form>
@@ -114,7 +110,7 @@ class UpdateFormPeserta extends React.Component{
 
 function mapStateToProps(state){
     return {
-        rpeserta : state.peserta
+        rmuser : state.muser
     }
 }
 
