@@ -3,8 +3,22 @@
  */
 import React from 'react';
 import { Link } from 'react-router';
+import { getAuth, doLogout } from '../actions/actionLogin';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class NavigationBar extends React.Component{
+
+    handleLogout(){
+        this.props.doLogout();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.login.authenticated === false) {
+            browserHistory.push('/');
+        }
+    }
+
     render(){
         return (
             <nav className="navbar navbar-default">
@@ -28,12 +42,20 @@ class NavigationBar extends React.Component{
                             <li><Link to="peserta">Peserta</Link></li>
                             <li><Link to="user">User</Link></li>
                         </ul>
-
                         <ul className="nav navbar-nav navbar-right">
                             <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
+                                <a
+                                    href="#"
+                                    className="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                    { ( this.props.login.user !== null) ? this.props.login.user.username : "" } &nbsp;&nbsp;
+                                    <span className="caret"></span>
+                                </a>
                                 <ul className="dropdown-menu">
-                                    <li><a href="#"><span className="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;Logout</a></li>
+                                    <li><a onClick={ this.handleLogout.bind(this) }><span className="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -44,4 +66,10 @@ class NavigationBar extends React.Component{
     }
 }
 
-export default NavigationBar;
+function mapStateToProps(state){
+    return {
+        login : state.login
+    }
+}
+
+export default connect(mapStateToProps, { getAuth, doLogout })(NavigationBar);

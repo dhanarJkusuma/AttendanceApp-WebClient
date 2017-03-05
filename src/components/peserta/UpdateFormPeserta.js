@@ -16,6 +16,7 @@ class UpdateFormPeserta extends React.Component{
             name : this.props.peserta.nama,
             alamat : this.props.peserta.alamat,
             kloter : this.props.peserta._kloter,
+            location : this.props.peserta._location
         }
     }
 
@@ -89,6 +90,24 @@ class UpdateFormPeserta extends React.Component{
                                         this.props.data.idata.kloter.map(function (kloter, i) {
                                             return (
                                                 <option value={ kloter._id } key={ i }>{ kloter.name }</option>
+                                            )
+                                        }, this)
+                                    }
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location"> Location :</label>
+                                <select
+                                    name="location"
+                                    className="form-control"
+                                    onChange={ this.onTextChange.bind(this) }
+                                    value={ this.state.location }
+                                >
+                                    <option value=""> -- Pilih Location --</option>
+                                    {
+                                        this.props.data.idata.location.map(function (location, i) {
+                                            return (
+                                                <option value={ location._id } key={ i }>{ location.name }</option>
                                             )
                                         }, this)
                                     }

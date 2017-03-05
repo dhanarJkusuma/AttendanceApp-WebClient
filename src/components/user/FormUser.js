@@ -12,7 +12,8 @@ class FormUser extends React.Component{
             'username' : '',
             'password' : '',
             'level' : '',
-            'location' : ''
+            'reps' : '',
+            isNotReps : true
         };
     }
 
@@ -23,6 +24,13 @@ class FormUser extends React.Component{
 
     onTextChange(e){
         this.setState({ [e.target.name] : e.target.value });
+        if(e.target.name === 'level'){
+            if(e.target.value !== 'reps'){
+                this.setState({ 'reps' : '', isNotReps : true });
+            }else{
+                this.setState({ 'reps' : '', isNotReps : false });
+            }
+        }
     }
 
     onHandleButtonSubmit(e){
@@ -77,14 +85,15 @@ class FormUser extends React.Component{
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="location"> Location :</label>
+                                <label htmlFor="location"> Reps :</label>
                                 <select
-                                    name="location"
+                                    name="reps"
                                     className="form-control"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.location }
+                                    value={ this.state.reps }
+                                    disabled={ this.state.isNotReps }
                                 >
-                                    <option value=""> -- Pilih Location --</option>
+                                    <option value=""> -- Pilih Reps --</option>
                                     {
                                         this.props.data.idata.location.map(function(location, i){
                                             return (

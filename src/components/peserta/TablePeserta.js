@@ -84,6 +84,8 @@ class TablePeserta extends React.Component{
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Alamat</th>
+                                        <th>Lokasi</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>

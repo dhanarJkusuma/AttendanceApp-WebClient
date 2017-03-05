@@ -3,19 +3,20 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateData, finishUpdate } from '../../actions/actionPeserta';
+import { updateData, finishUpdate } from '../../actions/actionUser';
 import Loader from '../Loader';
 
 import Message from '../Message';
-class UpdateFormPeserta extends React.Component{
+class UpdateFormUser extends React.Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-            username : this.props.peserta.username,
-            level : this.props.peserta.level,
-            location : this.props.peserta._location,
+            username : this.props.muser.username,
+            level : this.props.muser.level,
+            reps : (this.props.muser.reps !== null) ? this.props.muser.reps._id : '',
+            isNotReps : (this.props.muser.reps !== null) ? false : true,
         }
     }
 
@@ -34,6 +35,13 @@ class UpdateFormPeserta extends React.Component{
 
     onTextChange(e){
         this.setState({ [e.target.name] : e.target.value });
+        if(e.target.name === 'level'){
+            if(e.target.value !== 'reps'){
+                this.setState({ 'reps' : '', isNotReps : true });
+            }else{
+                this.setState({ 'reps' : '', isNotReps : false });
+            }
+        }
     }
 
 
@@ -79,15 +87,22 @@ class UpdateFormPeserta extends React.Component{
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="location"> Location :</label>
+                                <label htmlFor="location"> Reps :</label>
                                 <select
                                     name="location"
                                     className="form-control"
                                     onChange={ this.onTextChange.bind(this) }
-                                    value={ this.state.location }
+                                    value={ this.state.reps }
+                                    disabled={ this.state.isNotReps }
                                 >
-                                    <option value=""> -- Pilih Location --</option>
-
+                                    <option value=""> -- Pilih Reps --</option>
+                                    {
+                                        this.props.data.idata.location.map(function (location, i) {
+                                            return (
+                                                <option value={ location._id } key={ i }>{ location.name }</option>
+                                            )
+                                        }, this)
+                                    }
                                 </select>
                             </div>
                             <button
@@ -114,4 +129,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, {updateData, finishUpdate})(UpdateFormPeserta);
+export default connect(mapStateToProps, {updateData, finishUpdate})(UpdateFormUser);

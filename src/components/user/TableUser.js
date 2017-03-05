@@ -10,6 +10,7 @@ import Loader from '../Loader';
 import ItemUser from './ItemUser';
 import FormUser from './FormUser';
 import UpdateFormUser from './UpdateFormUser';
+import UpdateFormUserPassword from './UpdateFormUserPassword';
 
 import { insertData, deleteData, getLocation } from '../../actions/actionUser';
 class TableUser extends React.Component{
@@ -19,8 +20,10 @@ class TableUser extends React.Component{
         this.state = {
             showConfirm : false,
             showUpdate : false,
+            showChPass : false,
             tmpDelete : null,
-            tmpUpdate : null
+            tmpUpdate : null,
+            tmpChpass : null
         };
         this.onHandleDelete = this.onHandleDelete.bind(this);
     }
@@ -45,14 +48,21 @@ class TableUser extends React.Component{
         this.setState({ showUpdate : true, tmpUpdate : data });
     }
 
+    showChangePasswordDialog(data){
+        this.setState({ showChPass: true, tmpChpass : data });
+    }
+
+
     closeUpdateDialog(){
         this.setState({ showUpdate : false });
         this.props.onRefresh();
     }
 
-    handleUpdate(){
-        this.setState({ showUpdate : false });
+    closeChPassDialog(){
+        this.setState({ showChPass : false });
+        this.props.onRefresh();
     }
+
 
 
 
@@ -66,7 +76,11 @@ class TableUser extends React.Component{
                 if(this.state.showUpdate){
                     return (
                         <UpdateFormUser data={ this.props.rmUser } muser={this.state.tmpUpdate} onClose={this.closeUpdateDialog.bind(this)} />
-                    )
+                    );
+                }else if(this.state.showChPass){
+                    return (
+                        <UpdateFormUserPassword data={ this.props.rmUser } muser={this.state.tmpChpass } onClose={ this.closeChPassDialog.bind(this) } />
+                    );
                 }
                 else{
                     return (
@@ -84,6 +98,8 @@ class TableUser extends React.Component{
                                     <tr>
                                         <th>#</th>
                                         <th>Username</th>
+                                        <th>Type</th>
+                                        <th>Reps</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -96,6 +112,7 @@ class TableUser extends React.Component{
                                                 key={user._id}
                                                 onDeleteClick={this.showConfirmation.bind(this)}
                                                 onUpdateClick={this.showUpdateDialog.bind(this)}
+                                                onChPassClick={this.showChangePasswordDialog.bind(this)}
                                             />
                                         },this)
                                     }

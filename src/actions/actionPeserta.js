@@ -5,7 +5,8 @@ import {
     API_GET_PESERTA,
     API_UPDATE_PESERTA,
     API_DELETE_PESERTA,
-    API_GET_KLOTER
+    API_GET_KLOTER,
+    API_GET_LOCATION
 } from '../utils/apis';
 import axios from 'axios';
 
@@ -174,11 +175,15 @@ export function getKloter(){
     return dispatch => {
         dispatch(processGetForm());
         axios.get(API_GET_KLOTER, getConfig())
-            .then(function(res){
-                var data = {
-                    kloter: res.data.data
-                };
-                dispatch(doneGetForm(data));
+            .then(function(resKloter){
+                axios.get(API_GET_LOCATION, getConfig())
+                    .then(function(resLocation){
+                        var data = {
+                            kloter: resKloter.data.data,
+                            location: resLocation.data.data
+                        };
+                        dispatch(doneGetForm(data));
+                    });
             })
             .catch(err => console.log(err));
     }
@@ -189,6 +194,7 @@ export function getData(){
         dispatch(processRequest());
         axios.get(API_GET_PESERTA, getConfig())
             .then(function(res){
+                console.log(res);
                 dispatch(doneRequest(res.data.data));
             })
             .catch(err => console.log(err));

@@ -21,4 +21,4 @@ export const API_DELETE_PESERTA = BASE_URL + 'peserta/delete/';
 export const API_GET_USER = BASE_URL + 'muser';
 export const API_UPDATE_USER = BASE_URL + 'muser/update/';
 export const API_DELETE_USER = BASE_URL + 'muser/delete/'
-
+export const API_CHANGEPASS_USER = BASE_URL + 'muser/password/';

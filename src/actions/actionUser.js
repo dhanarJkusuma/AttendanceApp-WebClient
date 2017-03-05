@@ -5,7 +5,8 @@ import {
     API_GET_USER,
     API_UPDATE_USER,
     API_DELETE_USER,
-    API_GET_LOCATION
+    API_GET_LOCATION,
+    API_CHANGEPASS_USER
 } from '../utils/apis';
 import axios from 'axios';
 
@@ -190,15 +191,16 @@ export function getData(){
         axios.get(API_GET_USER, getConfig())
             .then(function(res){
                 dispatch(doneRequest(res.data.data));
+                console.log(res);
             })
             .catch(err => console.log(err));
     };
 }
 
-export function insertData(peserta){
+export function insertData(user){
     return dispatch => {
         dispatch(processPost());
-        axios.post(API_GET_USER, peserta, getConfig())
+        axios.post(API_GET_USER, user, getConfig())
             .then(function(res){
                 dispatch(donePost(res.data.data));
                 dispatch(getData());
@@ -211,6 +213,20 @@ export function updateData(id, peserta){
     return dispatch => {
         dispatch(processUpdate());
         axios.post(API_UPDATE_USER + id, peserta, getConfig())
+            .then(function(res){
+                dispatch(doneUpdate(res.data.message));
+                setTimeout(function(){
+                    dispatch(finishUpdate())
+                },5000);
+            })
+            .catch(err => console.log(err));
+    }
+}
+
+export function changePassword(id, password){
+    return dispatch => {
+        dispatch(processUpdate());
+        axios.post(API_CHANGEPASS_USER + id, password, getConfig())
             .then(function(res){
                 dispatch(doneUpdate(res.data.message));
                 setTimeout(function(){

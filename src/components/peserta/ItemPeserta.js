@@ -18,6 +18,8 @@ class ItemPeserta extends React.Component{
             <tr>
                 <td>{ this.props.index }</td>
                 <td>{ this.props.peserta.nama }</td>
+                <td>{ this.props.peserta.alamat }</td>
+                <td>{ this.props.peserta._location.name }</td>
                 <td>
                     <div className="btn-group" role="group" aria-label="...">
                         <button type="button" className="btn btn-warning" onClick={this.handleUpdate.bind(this)}>
