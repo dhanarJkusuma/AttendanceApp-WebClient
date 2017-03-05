@@ -15,6 +15,7 @@ import Lokasi from './pages/Lokasi';
 import Peserta from './pages/Peserta';
 import User from './pages/User';
 import Login from './pages/Login';
+import ChangePassword from './pages/ChangePassword';
 
 const router = (
     <Provider store={store}>
@@ -27,6 +28,7 @@ const router = (
                     <Route path="lokasi" component={Lokasi}></Route>
                     <Route path="peserta" component={Peserta}></Route>
                     <Route path="user" component={User}></Route>
+                    <Route path="password" component={ChangePassword}></Route>
                 </Route>
             </Route>
         </Router>

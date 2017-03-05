@@ -13,11 +13,17 @@ class NavigationBar extends React.Component{
         this.props.doLogout();
     }
 
+    handleChPassword(){
+        browserHistory.push('/password');
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.login.authenticated === false) {
             browserHistory.push('/');
         }
     }
+
+
 
     render(){
         return (
@@ -55,6 +61,7 @@ class NavigationBar extends React.Component{
                                     <span className="caret"></span>
                                 </a>
                                 <ul className="dropdown-menu">
+                                    <li><a onClick={ this.handleChPassword.bind(this) }><span className="glyphicon glyphicon-asterisk"></span>&nbsp;&nbsp;&nbsp;Ganti Password</a></li>
                                     <li><a onClick={ this.handleLogout.bind(this) }><span className="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;Logout</a></li>
                                 </ul>
                             </li>
